@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on main branch.
+// Program on branch T02.//This code is used to convert a number to words and roman letters.with a range check.
 // ------------------------------------------------------------------------------------------------
 using System.ComponentModel.Design;
 using System.Diagnostics.CodeAnalysis;
@@ -172,47 +172,44 @@ internal class Program {
       int n;
       do {
          Console.WriteLine ("What do you want to convert?\n1.Number to Words\n2.Number to Roman Letters");
-          n = int.Parse (Console.ReadLine ());
-      }while (n != 1 && n != 2);
-
-     
+         n = int.Parse (Console.ReadLine ());
+      } while (n != 1 && n != 2);
 
 
-
-       string result = "";
-         do {
-            if (n == 1) {
-               Console.WriteLine ("Enter a number between 0 and 9999:");
-               int input = int.Parse (Console.ReadLine ());
-               result = numbertowords (input);
-               Console.WriteLine ($"The Word format for the given input {input} is {result} ");
-              
-            }
-         }
-         while (result == "Invalid one");
-
-
-         do {
-
-            if (n == 2) {
-               Console.WriteLine ("Enter a number between 1 to 3999:");
-               int input = int.Parse (Console.ReadLine ());
-               result = Romanletterconverter (input);
-               Console.WriteLine ($"The roman letter for the given input {input} is {result} ");
-               
-
-            }
+      string result = "";
+      do {
+         if (n == 1) {
+            Console.WriteLine ("Enter a number between 0 and 9999:");
+            int input = int.Parse (Console.ReadLine ());
+            result = numbertowords (input);
+            Console.WriteLine ($"The Word format for the given input {input} is {result} ");
 
          }
-         while (result == "Input out of range" || result == "Invalid one");
+      }
+      while (result == "Invalid one");
 
-      
-      
+
+      do {
+
+         if (n == 2) {
+            Console.WriteLine ("Enter a number between 1 to 3999:");
+            int input = int.Parse (Console.ReadLine ());
+            result = Romanletterconverter (input);
+            Console.WriteLine ($"The roman letter for the given input {input} is {result} ");
+
+
+         }
+
+      }
+      while (result == "Input out of range" || result == "Invalid one");
+
+
+
 
 
 
    }
 }
-      
-      
-   
+
+
+
