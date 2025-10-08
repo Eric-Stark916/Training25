@@ -5,103 +5,79 @@
 // Program.cs
 // Program on T08.//This code is used to check the validity of a password based on certain criteria.
 // ------------------------------------------------------------------------------------------------
+using static System.Console;
 namespace Training25;
 
-class Password {
-   /// <summary>Checks whether the input is empty or null</summary>
-   /// <param name="input">Gets input from the user as string</param>
-   /// <returns>True or False & error message</returns>
-   public virtual bool Check (string input) {
-      if (string.IsNullOrEmpty (input)) {
-         Console.WriteLine ("Password cannot be empty");
-         return false;
-      }
-      return true;
-   }
-}
-
-class PasswordLength : Password {
-   /// <summary>Checks whether atleast six character is present or not</summary>
-   /// <param name="input">Gets input from the user as string</param>
-   /// <returns>True or False & error message</returns>
-   public override bool Check (string input) {
-      base.Check (input);
-      if (input.Length < 6) {
-         Console.WriteLine ("Password length should be at least 6 characters");
-         return false;
-      }
-      return true;
-   }
-}
-
-class PasswordDigit : PasswordLength {
-   /// <summary>Checks whether atleast one digit character is present or not</summary>
-   /// <param name="input">Gets input from the user as string</param>
-   /// <returns>True or False & error message</returns>
-   public override bool Check (string input) {
-      base.Check (input);
-      if (!input.Any (char.IsDigit)) {
-         Console.WriteLine ("Password should contain at least one digit");
-         return false;
-      }
-      return true;
-   }
-}
-
-class PasswordUpper : PasswordDigit {
-   /// <summary>Checks whether atleast one upper case character is present or not</summary>
-   /// <param name="input">Gets input from the user as string</param>
-   /// <returns>True or False & error message</returns>
-   public override bool Check (string input) {
-      base.Check (input);
-      if (!input.Any (char.IsUpper)) {
-         Console.WriteLine ("Password should contain at least one uppercase letter");
-         return false;
-      }
-      return true;
-   }
-}
-
-class PasswordLower : PasswordUpper {
-   /// <summary>Checks whether atleast one lower case character is present or not</summary>
-   /// <param name="input">Gets input from the user as string</param>
-   /// <returns>True or False & error message</returns>
-   public override bool Check (string input) {
-      base.Check (input);
-      if (!input.Any (char.IsLower)) {
-         Console.WriteLine ("Password should contain at least one Lowercase letter");
-         return false;
-      }
-      return true;
-   }
-}
-
-class PasswordSpecial : PasswordLower {
-   /// <summary>Checks whether atleast one special character is present or not</summary>
-   /// <param name="input">Gets input from the user as string</param>
-   /// <returns>True or False & message about success or error </returns>
-   public override bool Check (string input) {
-      base.Check (input);
+static class Password {
+   /// <summary>Check the password based on certain conditions</summary>
+   /// <param name="input">Gets string input from the user</param>
+   /// <returns>number of condition satisfied</returns>
+   public static int CountConditions (string input) {
       char[] chars = { '!', '@', '#', '$', '%', '&', '*', '(', ')', '-', '+', '^' };
-      if (input.IndexOfAny (chars) == -1) {
-         Console.WriteLine ("Password should contain at least one special character");
-         return false;
-      } else Console.WriteLine ("Password is Strong");
-      return true;
+      int count = 0;
+      WriteLine ("...............");
+      if (string.IsNullOrEmpty (input)) WriteLine ("*Password cannot be empty");
+      else count++;
+      if (input.Length < 6) WriteLine ("*Password length should be at least 6 characters");
+      else count++;
+      if (!input.Any (char.IsDigit)) WriteLine ("*Password should contain at least one digit");
+      else count++;
+      if (!input.Any (char.IsUpper)) WriteLine ("*Password should contain at least one " +
+                                                                          "uppercase letter");
+      else count++;
+      if (!input.Any (char.IsLower)) WriteLine ("*Password should contain at least one " +
+                                                                          "Lowercase letter");
+      else count++;
+      if (input.IndexOfAny (chars) == -1) WriteLine ("*Password should contain at least one " +
+                                                                         "special character");
+      else count++;
+      WriteLine ("...............");
+      if (count < 6) WriteLine ("Try Again");
+      WriteLine ("...............");
+      return count;
+   }
+
+   /// <summary>Check the password Strength based on the count of conditions satisfied</summary>
+   /// <param name="count">Gets count as integer from another method, 
+   ///  which checks the number of conditions satisfied </param>
+   /// <returns>Password strength</returns>
+   public static bool PasswordStrength (int count) {
+      bool result = false;
+      if (count <= 2) {
+         ForegroundColor = ConsoleColor.Red;
+         WriteLine ("Very Weak Password");
+         ResetColor ();
+      } else if (count == 3 || count == 4) {
+         ForegroundColor = ConsoleColor.DarkYellow;
+         WriteLine ("Weak Password");
+         ResetColor ();
+      } else if (count == 5) {
+         ForegroundColor = ConsoleColor.Yellow;
+         WriteLine ("Strong Password");
+         ResetColor ();
+      } else {
+         Clear ();
+         ForegroundColor = ConsoleColor.Green;
+         WriteLine ("Very Strong Password");
+         ResetColor ();
+         WriteLine ("Your Password is Valid");
+         result = true;
+      }
+      return result;
    }
 }
 
 internal class Program {
-   static void Main (string[] args) {
-      bool valid;
-      do {
-         Console.WriteLine ("Enter the password");
-         string password = Console.ReadLine ();
-         PasswordSpecial check = new PasswordSpecial ();
-         valid = check.Check (password);
-         Console.WriteLine ("-----------------");
-         if (!valid) Console.WriteLine ("*Please enter a valid password!");
+   static void Main () {
+      bool valid = false;
+      while (!valid) {
+         WriteLine ("Enter the password");
+         string password = ReadLine () ?? "";
+         if (Password.PasswordStrength (Password.CountConditions (password))) valid = true;
+         else {
+            Thread.Sleep (2500);
+            Clear ();
+         }
       }
-      while (!valid);
    }
 }
