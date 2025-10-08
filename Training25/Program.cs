@@ -9,12 +9,12 @@ using static System.Console;
 namespace Training25;
 
 internal class Program {
-   /// <summary>Converts decimal to binary number</summary>
-   /// <param name="input">Input number is taken from the user,takes only Whole numbers</param>
-   /// <returns>Binary number for the given decimal number</returns>
+   //Converts decimal to binary number
+   //Input number is taken from the user,takes only Whole numbers
+   //returns Binary number for the given decimal number.
    static string BinaryConverter (int input) {
-      string result = "";
       if (input == 0) return "0";
+      string result = "";
       while (input > 0) {
          int remainder = input % 2;
          input /= 2;
@@ -23,13 +23,13 @@ internal class Program {
       return result;
    }
 
-   /// <summary>Converts decimal to Hexadecimal</summary>
-   /// <param name="input">Input number is taken from the user,takes only Whole numbers</param>
-   /// <returns>Hexadecimal for the given decimal number</returns>
+   // Converts decimal to Hexadecimal.
+   // Input number is taken from the user,takes only Whole numbers.
+   // returns Hexadecimal for the given decimal number.
    static string HexConverter (int input) {
+      if (input == 0) return "0";
       string hexChars = "0123456789ABCDEF";
       string result = "";
-      if (input == 0) return "0";
       while (input > 0) {
          int remainder = input % 16;
          input /= 16;
