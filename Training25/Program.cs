@@ -9,9 +9,7 @@ using static System.Console;
 namespace Training25;
 
 internal class Program {
-   //Converts decimal to binary number
-   //Input number is taken from the user,takes only Whole numbers
-   //returns Binary number for the given decimal number.
+   // Converts decimal to binary number.
    static string BinaryConverter (int input) {
       if (input == 0) return "0";
       string result = "";
@@ -24,8 +22,6 @@ internal class Program {
    }
 
    // Converts decimal to Hexadecimal.
-   // Input number is taken from the user,takes only Whole numbers.
-   // returns Hexadecimal for the given decimal number.
    static string HexConverter (int input) {
       if (input == 0) return "0";
       string hexChars = "0123456789ABCDEF";
