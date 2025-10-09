@@ -9,9 +9,7 @@ using static System.Console;
 namespace Training25;
 
 internal class Program {
-   //Gives the Gretest common divisor for the given two numbers.
-   //Both input a and b Takes only Natural numbers.
-   //Returns Gretest common divisor.
+   // Gives the Gretest common divisor for the given two numbers.
    static int Gcd (int a, int b) {
       while (b != 0) {
          int remainder = a % b;
@@ -21,9 +19,7 @@ internal class Program {
       return a;
    }
 
-   //Gives the Lowest common divisor for the given two numbers.
-   //Both input a and b Takes only Natural numbers.
-   //Returns Lowest common divisor.
+   // Gives the Lowest common divisor for the given two numbers.
    static int Lcm (int a, int b) => (a * b) / Gcd (a, b);
 
    static void Main () {
