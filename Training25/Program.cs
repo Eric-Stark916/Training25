@@ -65,30 +65,32 @@ internal class Program {
       string result = "";
       bool isVal = false;
       do WriteLine ("What do you want to convert?\n1.Number to words\n2.Number to Roman numeral");
-      while (!int.TryParse (ReadLine (), out inpChoice) || (inpChoice != 1 && inpChoice != 2));      // Validating inp choice common for both conversions.
-      if (inpChoice == 1) {                                                                         // For number to words
-         while (!isVal) {
-            Write ("Enter a number less than 1 crore: ");
-            isVal = int.TryParse (ReadLine (), out inp) && inp >= 0 && inp <= 9999999;
-            if (isVal) {
-               result = NumToWords (inp);
-               Write ($"The word representation for the given input {inp} is: ");
-            } else if (inp < 0 || inp > 9999999) isVal = false;
-            else Write ("Invalid input.");
-         }
+      while (!int.TryParse (ReadLine (), out inpChoice) || (inpChoice != 1 && inpChoice != 2));
+      switch (inpChoice) {
+         case 1:
+            while (!isVal) {
+               Write ("Enter a number less than 1 crore: ");
+               isVal = int.TryParse (ReadLine (), out inp) && inp >= 0 && inp <= 9999999;
+               if (isVal) {
+                  result = NumToWords (inp);
+                  Write ($"The word representation for the given input {inp} is: ");
+               } // After 1 crore the wordings are not correct
+               else if (inp < 0 || inp > 9999999) isVal = false;
+            }
+            break;
+         case 2:
+            while (!isVal) {
+               Write ("Enter a number between 1 to 3999: ");
+               isVal = (int.TryParse (ReadLine (), out inp)) && (inp > 0 && inp < 4000);
+               if (isVal) {
+                  result = RomNumConv (inp);
+                  Write ($"The Roman numeral for the given input {inp} is: ");
+               }// There are no Roman numerals for 0 and negative numbers and >3999
+               else if ((inp < 1 || inp > 3999)) isVal = false;
+            }
+            break;
       }
-      if (inpChoice == 2) {                                                                       // For Roman numerals
-         while (!isVal) {
-            Write ("Enter a number between 1 to 3999: ");
-            isVal = (int.TryParse (ReadLine (), out inp)) && (inp > 0 && inp < 4000);
-            if (isVal) {
-               result = RomNumConv (inp);
-               Write ($"The Roman numeral for the given input {inp} is: ");
-            } else if ((inp < 1 || inp > 3999)) isVal = false;
-            else Write ("Invalid input.");
-         }
-      }
-      if (isVal) {                                                                            // To display the result in green color common for both conversions.
+      if (isVal) { // To display the result in green color common for both conversions.                                                                    
          ForegroundColor = ConsoleColor.Green;
          Write (result);
          ResetColor ();
