@@ -3,43 +3,32 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T01 branch."This code is used to convert decimal number, to binarynumber and hexadecimal".
+// Program on branch T01: Number Conversion Game (Decimal to Binary and Hex)
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training25;
 
 internal class Program {
-   // Converts decimal to binary number.
-   static string BinaryConverter (int input) {
-      if (input == 0) return "0";
+   // Converts decimal to binary number and hex numeral.
+   static string BinaryHexConverter (int inp, int div) {
+      if (inp == 0) return "0";
       string result = "";
-      while (input > 0) {
-         int remainder = input % 2;
-         input /= 2;
-         result = remainder + result;
-      }
-      return result;
-   }
-
-   // Converts decimal to Hexadecimal.
-   static string HexConverter (int input) {
-      if (input == 0) return "0";
       string hexChars = "0123456789ABCDEF";
-      string result = "";
-      while (input > 0) {
-         int remainder = input % 16;
-         input /= 16;
-         result = hexChars[remainder] + result;
+      while (inp > 0) {
+         int rem = inp % div;
+         inp /= div;
+         if (div == 2) result = rem + result;
+         else result = hexChars[rem] + result;
       }
       return result;
    }
 
    static void Main () {
-      WriteLine ("Enter a number");
+      Write ("Enter a number: ");
       string? input = ReadLine ();
       if (int.TryParse (input, out int result)) {
-         WriteLine ($"Binary number:{BinaryConverter (result)}");
-         WriteLine ($"Hex number:{HexConverter (result)}");
+         WriteLine ($"Binary number: {BinaryHexConverter (result, 2)}");
+         WriteLine ($"Hex number: {BinaryHexConverter (result, 16)}");
       } else WriteLine ("Invalid input");
    }
 }
