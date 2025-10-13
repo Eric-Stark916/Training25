@@ -3,36 +3,40 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on branch T07.//This code creates a Pascal's Triangle up to a specified number of rows.
+// Program on branch T07: Pascal's Triangle
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training25;
 
 internal class Program {
    // Prints Pascal's triangle
-   static int PascalTriangle (int rowLimit) {
+   static int BuildPascalTriangle (int rows) {
       int value = 0;
-      for (int row = 0; row < rowLimit; row++) {                       // for Row traverse
+      // For row traverse
+      for (int row = 0; row < rows; row++) {
          value = 1;
-         for (int gap = 0; gap < rowLimit - row; gap++) Write (" ");  // for spaces in decending order to form the triangle shape
-         for (int col = 0; col <= row; col++) {                      // for coloumn traverse
+         // For spaces in descending order to form the triangle shape
+         for (int gap = 0; gap < rows - row; gap++) Write (" ");
+         // For column traverse
+         for (int col = 0; col <= row; col++) {
             Write ($"{value} ");
             value = value * (row - col) / (col + 1);
          }
-         WriteLine ();                                             // New line after each row
+         // New line after each row
+         WriteLine ();
       }
       return value;
    }
 
    static void Main () {
-      bool isValid = false;
-      while (!isValid) {
-         WriteLine ("Enter number of rows required in Pascal's Triangle:");
+      while (true) {
+         WriteLine ("Enter number of rows required in Pascal's triangle: ");
+         // Row limit above 20 will make the triangle too wide
          if (int.TryParse (ReadLine (), out int output) && output > 0 &&
             output < 20) {
-            isValid = true;
-            PascalTriangle (output);
-         } else WriteLine ("Invalid Input,Enter a valid one");
+            BuildPascalTriangle (output);
+            break;
+         } else WriteLine ("Invalid input");
       }
    }
 }
