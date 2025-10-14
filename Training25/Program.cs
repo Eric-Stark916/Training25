@@ -17,8 +17,7 @@ internal class Program {
       while (inp > 0) {
          int rem = inp % div;
          inp /= div;
-         if (div == 2) result = rem + result;
-         else result = hexChars[rem] + result;
+         result = hexChars[rem] + result;
       }
       return result;
    }
