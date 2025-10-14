@@ -9,6 +9,15 @@ using static System.Console;
 namespace Training25;
 
 internal class Program {
+   static void Main () {
+      Write ("Enter a number: ");
+      string? input = ReadLine ();
+      if (int.TryParse (input, out int result)) {
+         WriteLine ($"Binary number: {BinaryHexConverter (result, 2)}");
+         WriteLine ($"Hex number: {BinaryHexConverter (result, 16)}");
+      } else WriteLine ("Invalid input");
+   }
+
    // Converts decimal to binary number and hex numeral.
    static string BinaryHexConverter (int inp, int div) {
       if (inp == 0) return "0";
@@ -20,14 +29,5 @@ internal class Program {
          result = hexChars[rem] + result;
       }
       return result;
-   }
-
-   static void Main () {
-      Write ("Enter a number: ");
-      string? input = ReadLine ();
-      if (int.TryParse (input, out int result)) {
-         WriteLine ($"Binary number: {BinaryHexConverter (result, 2)}");
-         WriteLine ($"Hex number: {BinaryHexConverter (result, 16)}");
-      } else WriteLine ("Invalid input");
    }
 }
