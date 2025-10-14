@@ -9,6 +9,18 @@ using static System.Console;
 namespace Training25;
 
 internal class Program {
+   static void Main () {
+      while (true) {
+         WriteLine ("Enter number of rows required in Pascal's triangle: ");
+         // Row limit above 20 will make the triangle too wide
+         if (int.TryParse (ReadLine (), out int output) && output > 0 &&
+            output < 20) {
+            BuildPascalTriangle (output);
+            break;
+         } else WriteLine ("Invalid input");
+      }
+   }
+
    // Prints Pascal's triangle
    static int BuildPascalTriangle (int rows) {
       int value = 0;
@@ -26,17 +38,5 @@ internal class Program {
          WriteLine ();
       }
       return value;
-   }
-
-   static void Main () {
-      while (true) {
-         WriteLine ("Enter number of rows required in Pascal's triangle: ");
-         // Row limit above 20 will make the triangle too wide
-         if (int.TryParse (ReadLine (), out int output) && output > 0 &&
-            output < 20) {
-            BuildPascalTriangle (output);
-            break;
-         } else WriteLine ("Invalid input");
-      }
    }
 }
