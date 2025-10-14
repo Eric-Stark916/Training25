@@ -8,6 +8,20 @@
 using static System.Console;
 namespace Training25;
 
+internal class Program {
+   static void Main () {
+      bool isValid = false;
+      while (!isValid) {
+         WriteLine ("Enter the password: ");
+         string password = ReadLine () ?? "";
+         if (!string.IsNullOrEmpty (password)) {
+            isValid = true;
+            if (!Password.IsPasswordValid (Password.ConditionsSatisfied (password))) isValid = false;
+         } else WriteLine ("Invalid input");
+      }
+   }
+}
+
 static class Password {
    /// <summary>Validates the password against multiple conditions</summary>
    /// <param name="input">The password to validate</param>
@@ -47,19 +61,5 @@ static class Password {
       }
       ResetColor ();
       return result;
-   }
-}
-
-internal class Program {
-   static void Main () {
-      bool isValid = false;
-      while (!isValid) {
-         WriteLine ("Enter the password: ");
-         string password = ReadLine () ?? "";
-         if (!string.IsNullOrEmpty (password)) {
-            isValid = true;
-            if (!Password.IsPasswordValid (Password.ConditionsSatisfied (password))) isValid = false;
-         } else WriteLine ("Invalid input");
-      }
    }
 }
