@@ -26,9 +26,8 @@ internal class Program {
       if (int.TryParse (num1, out int val1) && int.TryParse (num2, out int val2)
          && val1 > 0 && val2 > 0) {
          int gcd = GCD (val1, val2);
-         int lcm = (val1 * val2) / gcd;
-         WriteLine ($"The GCD of the given input {val1}, {val2} is: " + gcd);
-         WriteLine ($"The LCM of the given input {val1}, {val2} is: " + lcm);
-      } else WriteLine ("Invalid input, please enter two positive integers");
+         WriteLine ($"The GCD of the given input {val1}, {val2} is: {gcd}");
+         WriteLine ($"The LCM of the given input {val1}, {val2} is: {val1 * val2 / gcd}");
+      } else WriteLine ("Invalid input, please enter two positive integers.");
    }
 }
