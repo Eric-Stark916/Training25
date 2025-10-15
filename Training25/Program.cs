@@ -11,32 +11,30 @@ namespace Training25;
 internal class Program {
    static void Main () {
       while (true) {
-         WriteLine ("Enter number of rows required in Pascal's triangle: ");
-         // Row limit above 20 will make the triangle too wide
-         if (int.TryParse (ReadLine (), out int output) && output > 0 &&
-            output < 20) {
-            BuildPascalTriangle (output);
+         Write ("Enter number of rows required in Pascal's triangle (1-16): ");
+         // Row above 16 will make the triangle too wide
+         if (int.TryParse (ReadLine (), out int inp) && inp > 0 && inp <= 16) {
+            PrintPascalTriangle (inp);
             break;
-         } else WriteLine ("Invalid input");
+         }
+         WriteLine ("Invalid input.");
       }
    }
 
    // Prints Pascal's triangle
-   static int BuildPascalTriangle (int rows) {
-      int value = 0;
+   static void PrintPascalTriangle (int rows) {
       // For row traverse
       for (int row = 0; row < rows; row++) {
-         value = 1;
+         int value = 1;
          // For spaces in descending order to form the triangle shape
-         for (int gap = 0; gap < rows - row; gap++) Write (" ");
+         for (int gap = 0; gap < (rows - row) * 2.5; gap++) Write (" ");
          // For column traverse
          for (int col = 0; col <= row; col++) {
-            Write ($"{value} ");
+            Write ($"{value,5}");
             value = value * (row - col) / (col + 1);
          }
          // New line after each row
          WriteLine ();
       }
-      return value;
    }
 }
