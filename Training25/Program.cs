@@ -11,13 +11,12 @@ namespace Training25;
 internal class Program {
    static void Main () {
       while (true) {
-         Write ("Enter number of rows required in Pascal's triangle (1-16): ");
-         // Row above 16 will make the triangle too wide
-         if (int.TryParse (ReadLine (), out int inp) && inp > 0 && inp <= 16) {
+         Write ("Enter number of rows required in Pascal's triangle: ");
+         if (int.TryParse (ReadLine (), out int inp) && inp > 0) {
             PrintPascalTriangle (inp);
             break;
          }
-         WriteLine ("Invalid input.");
+         WriteLine ("Invalid input. Please try again.");
       }
    }
 
