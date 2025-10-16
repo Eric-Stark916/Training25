@@ -26,10 +26,10 @@ internal class Program {
       for (int row = 0; row < rows; row++) {
          int value = 1;
          // For spaces in descending order to form the triangle shape
-         for (int gap = 0; gap < (rows - row) * 2.5; gap++) Write (" ");
+         for (int gap = 0; gap < (rows - row) * 2; gap++) Write (" ");
          // For column traverse
          for (int col = 0; col <= row; col++) {
-            Write ($"{value,5}");
+            Write ($"{value,4}");
             value = value * (row - col) / (col + 1);
          }
          // New line after each row
