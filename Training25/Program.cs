@@ -11,8 +11,9 @@ namespace Training25;
 internal class Program {
    static void Main () {
       while (true) {
-         Write ("Enter number of rows required in Pascal's triangle: ");
-         if (int.TryParse (ReadLine (), out int inp) && inp > 0) {
+         Write ("Enter number of rows required in Pascal's triangle (1-13): ");
+         // Above row 13, numbers are too close to each other.
+         if (int.TryParse (ReadLine (), out int inp) && inp > 0 && inp < 14) {
             PrintPascalTriangle (inp);
             break;
          }
