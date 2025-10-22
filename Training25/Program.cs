@@ -13,32 +13,43 @@ internal class Program {
       while (true) {
          WriteLine ("Enter the password: ");
          string pass = ReadLine () ?? "";
-         Write (Password.PasswordValidator (pass));
-         if (Password.PasswordValidator (pass) == "Strong Password.") break;
+         if (string.IsNullOrWhiteSpace (pass)) {
+            WriteLine ("Password should not be empty.Please try again!\n");
+            continue;
+         }
+         var invalid = PasswordValidator.Validate (pass);
+         if (invalid.Count == 0) {
+            WriteLine ("Strong Password.");
+            break;
+         } else {
+            WriteLine ("Weak Password.\nReason:");
+            invalid.ForEach (WriteLine);
+            WriteLine ("Please try again!");
+            WriteLine ();
+         }
       }
    }
 }
 
-static class Password {
+static class PasswordValidator {
    /// <summary>Validates the password against multiple conditions</summary>
-   /// <param name="input">The password to validate</param>
-   /// <returns>Strong or weak password and also the conditions to be addressed</returns>
-   public static string PasswordValidator (string inp) {
-      List<string> condi = [];
-      char[] chars = { '!', '@', '#', '$', '%', '&', '*', '(', ')', '-', '+', '^' };
-      if (string.IsNullOrWhiteSpace (inp)) condi.Add ("*Password should not be empty.");
-      else {
-         if (inp.Any (char.IsWhiteSpace)) condi.Add ("*There should be no space in the whole password.");
-         if (inp.Length < 6) condi.Add ("*Password length should be at least 6 characters.");
-         if (!inp.Any (char.IsDigit)) condi.Add ("*Password should contain at least one digit.");
-         if (!inp.Any (char.IsUpper)) condi.Add ("*Password should contain at least one " +
-                                                                             "uppercase letter.");
-         if (!inp.Any (char.IsLower)) condi.Add ("*Password should contain at least one " +
-                                                                             "lowercase letter.");
-         if (inp.IndexOfAny (chars) == -1) condi.Add ("*Password should contain at least one " +
-                                                                            "special character.");
-      }
-      return condi.Count == 0 ? "Strong Password." : "Weak Password.Try again.\nHints:\n" +
-                                                     string.Join ("\n", condi) + "\n\n";
+   /// <param name="text">The password to validate</param>
+   /// <returns>Reason for weak password</returns>
+   public static List<string> Validate (string text) {
+      List<string> condition = [];
+      if (text.Any (char.IsWhiteSpace))
+         condition.Add ("*There should be no space in the whole password.");
+      if (text.Length < 6)
+         condition.Add ("*Password length should be at least 6 characters.");
+      if (!text.Any (char.IsDigit))
+         condition.Add ("*Password should contain at least one digit.");
+      if (!text.Any (char.IsUpper))
+         condition.Add ("*Password should contain at least one uppercase letter.");
+      if (!text.Any (char.IsLower))
+         condition.Add ("*Password should contain at least one lowercase letter.");
+      if (text.IndexOfAny (sSplchars) == -1)
+         condition.Add ("*Password should contain at least one special character.");
+      return condition;
    }
+   static readonly char[] sSplchars = { '!', '@', '#', '$', '%', '&', '*', '(', ')', '-', '+', '^' };
 }
