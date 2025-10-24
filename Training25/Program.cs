@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on branch T08: Strong Password Validator
+// Program on branch T08: Strong Password Validator.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training25;
@@ -29,18 +29,20 @@ internal class Program {
          WriteLine ("Please try again!\n");
       }
    }
+   #endregion
 }
+#endregion
 
+#region class PasswordValidator -----------------------------------------------------------------------------
 static class PasswordValidator {
    /// <summary>Validates the password against multiple conditions</summary>
    /// <param name="text">The password to validate</param>
    /// <returns>Reasons for weak password</returns>
+   #region Method -------------------------------------------
    public static List<string> Validate (string text) {
       List<string> condition = [];
-      if (text.Length < 6) {
+      if (text.Length < 6)
          condition.Add ("*Password length should be at least 6 characters.");
-         return condition;
-      }
       if (!text.Any (char.IsDigit))
          condition.Add ("*Password should contain at least one digit.");
       if (!text.Any (char.IsUpper))
