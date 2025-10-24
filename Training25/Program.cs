@@ -9,7 +9,9 @@ using System.Text;
 using static System.Console;
 namespace Training25;
 
+#region class Program -----------------------------------------------------------------------------
 internal class Program {
+   #region Implementation -------------------------------------------
    static void Main () {
       while (true) {
          WriteLine ("Welcome to number conversion game. Choose mode: \n1. Words\n2. Roman Numerals");
@@ -34,12 +36,12 @@ internal class Program {
    // Converts an number (from 1 to 3999) into its Roman numeral representation.
    static string NumToRomanNumeral (int inp) {
       StringBuilder result = new ();
-      var romNum = new List<(int, string)> {
+      var romNums = new List<(int, string)> {
                  (1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
                  (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
                  (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")
       };
-      foreach (var (num, rom) in romNum) {
+      foreach (var (num, rom) in romNums) {
          while (inp >= num) {
             result.Append (rom);
             inp -= num;
@@ -55,18 +57,23 @@ internal class Program {
                              "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
                              "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Thirty",
                              "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" ];
-      StringBuilder result = new ();
-      // For tens (21–99), no label needed
-      var placeValues = new List<(string, int)> { ("Lakhs", 100000), ("Thousand", 1000),
+      if (inp <= 20) return words[inp];
+      // For tens (21–99), no label needed.
+      var placeValues = new List<(string, int)> { ("Lakh", 100000), ("Thousand", 1000),
                                                   ("Hundred", 100), ("", 10) };
+      StringBuilder result = new ();
       foreach (var (name, divisor) in placeValues) {
          int num = inp / divisor;
+         // Checking for numbers less than zero and 20 to change the divisor and to get out of the loop.
          if (num <= 0 || inp < 20) continue;
+         // If divisor is not 10 recursion happens.
          result.Append (!string.IsNullOrEmpty (name) ? $"{NumToWords (num)} {name} " : words[18 + num] + " ");
          inp %= divisor;
-         if (inp > 0) result.Append ($"{(divisor == 100 ? "and " : "")}");
+         if (divisor == 100 && inp > 0) result.Append ("and ");
       }
       if (inp > 0) result.Append (words[inp]);
       return result.ToString ().TrimEnd ();
    }
+   #endregion
 }
+#endregion
