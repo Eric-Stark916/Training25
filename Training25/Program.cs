@@ -26,7 +26,7 @@ internal class Program {
          (int min, int max) = choice == 1 ? (0, 9999999) : (1, 3999);
          Write ($"Enter a number between {min} and {max} to convert: ");
          bool invalid = !int.TryParse (ReadLine (), out int num) || num < min || num > max;
-         WriteLine (invalid ? "Invalid input. Number must be with in the specified range." :
+         WriteLine (invalid ? "Invalid input. Number must be within the specified range." :
             choice == 1 ? $"The word representation of {num} is: {NumToWords (num)}" :
             $"The Roman numeral of {num} is: {NumToRomanNumeral (num)}");
          WriteLine ("---------------");
@@ -64,10 +64,10 @@ internal class Program {
       StringBuilder result = new ();
       foreach (var (name, divisor) in placeValues) {
          int num = inp / divisor;
-         // Checking for numbers less than zero and 20 to change the divisor and to get out of the loop.
+         // Skip if the place value is zero or if the remaining number is less than 20.
          if (num <= 0 || inp < 20) continue;
-         // If divisor is not 10 recursion happens.
-         result.Append (!string.IsNullOrEmpty (name) ? $"{NumToWords (num)} {name} " : words[18 + num] + " ");
+         // If divisor is ten, lookup words list directly and recurse for others.
+         result.Append (!string.IsNullOrEmpty (name) ? $"{NumToWords (num)} {name} " : $"{words[18 + num]} ");
          inp %= divisor;
          if (divisor == 100 && inp > 0) result.Append ("and ");
       }
