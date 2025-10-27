@@ -12,25 +12,11 @@ namespace Training25;
 internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
-      while (true) {
-         Write ("Enter the number of tables you want to print: ");
-         bool isValid = int.TryParse (ReadLine (), out int inp);
-         if (isValid) {
-            MultiplicationTables (inp);
-            break;
-         }
-         WriteLine ("Invalid input. Try again.");
-      }
-   }
-
-   // Function to print multiplication tables with header.
-   static void MultiplicationTables (int tableNo) {
-      // For printing multiplication number.
-      for (int tabNo = 1; tabNo <= tableNo; tabNo++) {
-         WriteLine ($"\n  Table {tabNo}\n");
-         // For printing table number.
+      for (int tabNo = 1; tabNo <= 10; tabNo++) {
+         WriteLine ($"Multiplication table for {tabNo}:\n");
          for (int mulNo = 1; mulNo <= 10; mulNo++)
-            WriteLine ($"{tabNo,3} * {mulNo,2} = {tabNo * mulNo}");
+            WriteLine ($"{tabNo,2} * {mulNo,2} = {tabNo * mulNo}");
+         WriteLine ();
       }
    }
    #endregion
