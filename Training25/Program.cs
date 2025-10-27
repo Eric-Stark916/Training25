@@ -19,17 +19,13 @@ internal class Program {
             WriteLine ("Password should not be empty. Please try again!\n");
             continue;
          }
-         var result = PasswordValidator.Validate (pass);
-         if (result.Count == 0) {
-            WriteLine ("Strong Password.");
+         var reasons = PasswordValidator.Validate (pass);
+         if (reasons.Count == 0) {
+            WriteLine ("Strong password.");
             break;
          }
-         if (pass?.ToLower ().Trim () == "r") {
-            WriteLine ("Special Characters are: ! @ # $ % & * ( ) - + ^\n");
-            continue;
-         }
-         WriteLine ("Weak Password.");
-         result.ForEach (WriteLine);
+         WriteLine ("Weak password.");
+         reasons.ForEach (WriteLine);
          WriteLine ("Please try again!\n");
       }
    }
@@ -46,7 +42,7 @@ public static class PasswordValidator {
    public static List<string> Validate (string text) {
       List<string> condition = [];
       if (text.Any (char.IsWhiteSpace))
-         condition.Add ("*Password should not contain space.");
+         condition.Add ("*Password should not contain spaces.");
       if (text.Length < 6)
          condition.Add ("*Password length should be at least 6 characters.");
       if (!text.Any (char.IsDigit))
@@ -56,7 +52,7 @@ public static class PasswordValidator {
       if (!text.Any (char.IsLower))
          condition.Add ("*Password should contain at least one lowercase letter.");
       if (text.IndexOfAny (sSplchars) == -1)
-         condition.Add ("*Password should contain at least one special character. Press 'R' to reveal the characters.");
+         condition.Add ($"*Password should contain at least one special character from the following characters: ({string.Join (" ", sSplchars)}).");
       return condition;
    }
    static readonly char[] sSplchars = { '!', '@', '#', '$', '%', '&', '*', '(', ')', '-', '+', '^' };
