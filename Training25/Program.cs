@@ -13,19 +13,23 @@ internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
       while (true) {
-         WriteLine ("Enter the password: ");
-         string pass = ReadLine () ?? "";
-         if (string.IsNullOrWhiteSpace (pass) || pass.Any (char.IsWhiteSpace)) {
-            WriteLine ("Password should not be empty. And no space should be left. Please try again!\n");
+         Write ("Enter the password: ");
+         string? pass = ReadLine ();
+         if (string.IsNullOrEmpty (pass)) {
+            WriteLine ("Password should not be empty. Please try again!\n");
             continue;
          }
-         var validationResult = PasswordValidator.Validate (pass);
-         if (validationResult.Count == 0) {
+         var result = PasswordValidator.Validate (pass);
+         if (result.Count == 0) {
             WriteLine ("Strong Password.");
             break;
          }
+         if (pass?.ToLower ().Trim () == "r") {
+            WriteLine ("Special Characters are: ! @ # $ % & * ( ) - + ^\n");
+            continue;
+         }
          WriteLine ("Weak Password.");
-         validationResult.ForEach (WriteLine);
+         result.ForEach (WriteLine);
          WriteLine ("Please try again!\n");
       }
    }
@@ -33,14 +37,16 @@ internal class Program {
 }
 #endregion
 
-#region class PasswordValidator -----------------------------------------------------------------------------
-static class PasswordValidator {
+#region class PasswordValidator -------------------------------------------------------------------
+public static class PasswordValidator {
+   #region Method ---------------------------------------------------
    /// <summary>Validates the password against multiple conditions</summary>
    /// <param name="text">The password to validate</param>
    /// <returns>Reasons for weak password</returns>
-   #region Method -------------------------------------------
    public static List<string> Validate (string text) {
       List<string> condition = [];
+      if (text.Any (char.IsWhiteSpace))
+         condition.Add ("*Password should not contain space.");
       if (text.Length < 6)
          condition.Add ("*Password length should be at least 6 characters.");
       if (!text.Any (char.IsDigit))
@@ -50,7 +56,7 @@ static class PasswordValidator {
       if (!text.Any (char.IsLower))
          condition.Add ("*Password should contain at least one lowercase letter.");
       if (text.IndexOfAny (sSplchars) == -1)
-         condition.Add ("*Password should contain at least one special character.");
+         condition.Add ("*Password should contain at least one special character. Press 'R' to reveal the characters.");
       return condition;
    }
    static readonly char[] sSplchars = { '!', '@', '#', '$', '%', '&', '*', '(', ')', '-', '+', '^' };
