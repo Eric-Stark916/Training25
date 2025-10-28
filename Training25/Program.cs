@@ -17,14 +17,13 @@ internal class Program {
          string? inp = ReadLine ()?.Trim ().ToLower ();
          if (string.IsNullOrWhiteSpace (inp)) continue;
          if (inp == "x") break;
-         string result = ReducedString (inp);
-         WriteLine (result.Length ==
-            0 ? "Empty string." : $"The resultant string for the given input {inp} is: {result}\n");
+         string result = GetReducedString (inp);
+         WriteLine (result.Length == 0 ? "Empty string.\n" : $"The resultant string for the given input {inp} is: {result}\n");
       }
    }
 
    // Checks and removes the adjacent matching character pairs from the given string.
-   static string ReducedString (string inp) {
+   static string GetReducedString (string inp) {
       for (int i = 0; i < inp.Length; i++) {
          while (i < inp.Length - 1) {
             if (inp[i] == inp[i + 1]) inp = inp.Remove (i, 2);
