@@ -14,19 +14,21 @@ internal class Program {
    static void Main () {
       while (true) {
          Write ("Enter characters to delete the matching adjacent pair or 'X' to exit: ");
-         string? inp = ReadLine ()?.ToLower ().Trim ();
+         string? inp = ReadLine ()?.Trim ().ToLower ();
          if (string.IsNullOrWhiteSpace (inp)) continue;
          if (inp == "x") break;
-         WriteLine (ReducedString (inp).Length == 0 ? "Everything is removed." : $"The resultant string for the given input {inp} is {ReducedString (inp)}\n");
+         string result = ReducedString (inp);
+         WriteLine (result.Length ==
+            0 ? "Empty string." : $"The resultant string for the given input {inp} is: {result}\n");
       }
    }
 
-   // Checks and removes the adjacent matching characters from the string.
+   // Checks and removes the adjacent matching character pairs from the given string.
    static string ReducedString (string inp) {
       for (int i = 0; i < inp.Length; i++) {
-         if (i > 0 && inp[i] == inp[i - 1]) {
-            inp = inp.Remove (i - 1, 2);
-            i = 0;
+         while (i < inp.Length - 1) {
+            if (inp[i] == inp[i + 1]) inp = inp.Remove (i, 2);
+            else i++;
          }
       }
       return inp;
