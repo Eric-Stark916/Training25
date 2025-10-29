@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on main branch.
+// Program on Branch Test01: EVEN ODD DIGIT SORTER.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training25;
@@ -13,7 +13,7 @@ internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
       while (true) {
-         WriteLine ("Enter the numbers to get sorted or 'X' to close: ");
+         Write ("Enter the numbers to get sorted or 'X' to close: ");
          var inputStr = ReadLine ();
          if (inputStr?.ToLower () == "x") {
             break;
