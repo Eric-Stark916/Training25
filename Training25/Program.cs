@@ -51,11 +51,11 @@ public static class PasswordValidator {
          condition.Add ("*Password should contain at least one uppercase letter.");
       if (!text.Any (char.IsLower))
          condition.Add ("*Password should contain at least one lowercase letter.");
-      if (text.IndexOfAny (sSplchars) == -1)
-         condition.Add ($"*Password should contain at least one special character from the following characters: ({string.Join (" ", sSplchars)}).");
+      if (!sSplchars.Any (text.Contains))
+         condition.Add ($"*Password should contain at least one special character from the following characters: {sSplchars}.");
       return condition;
    }
-   static readonly char[] sSplchars = { '!', '@', '#', '$', '%', '&', '*', '(', ')', '-', '+', '^' };
+   static readonly string sSplchars = "!@#$%&*()-+^";
    #endregion
 }
 #endregion
