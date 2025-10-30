@@ -8,7 +8,7 @@
 using static System.Console;
 namespace Training25;
 
-#region class Program ------------------------------------------------------------------------------
+#region class Program -----------------------------------------------------------------------------
 internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
@@ -20,19 +20,20 @@ internal class Program {
             WriteLine ("Invalid input.\n");
             continue;
          }
-         Write ($"The reversed string for the given input \"{input}\" is: {IsUpper (input)}\n\n");
+         WriteLine ($"The reversed string for the given input \"{input}\" is: {GetReversed (input)}\n");
       }
 
       // Gives reversed string while maintaining the case and spaces.
-      static string IsUpper (string input) {
-         List<char> reversed = [.. new string ([.. input.Where (c => !char.IsWhiteSpace (c)).Reverse ()]).ToLower ()];
-         string result = "";
-         for (int i = 0; i < input.Length; i++) {
-            if (char.IsUpper (input[i])) reversed[i] = char.ToUpper (reversed[i]);
-            if (char.IsWhiteSpace (input[i])) reversed.Insert (i, ' ');
-            result += reversed[i];
+      static string GetReversed (string inp) {
+         List<char> inpChars = [.. inp.Replace (" ", "").ToLower ()];
+         inpChars.Reverse ();
+         int j = 0;
+         foreach (var chars in inp) {
+            if (char.IsUpper (chars)) inpChars[j] = char.ToUpper (inpChars[j]);
+            if (char.IsWhiteSpace (chars)) inpChars.Insert (j, ' ');
+            j++;
          }
-         return result;
+         return new string ([.. inpChars]);
       }
    }
    #endregion
