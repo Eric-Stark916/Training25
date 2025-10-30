@@ -16,14 +16,10 @@ internal class Program {
          Write ("Enter the number to find the Armstrong number or 'X' to exit: ");
          var input = ReadLine ()?.Trim ().ToLower ();
          if (input == "x") break;
-         else if (!int.TryParse (input, out int num) || num < 0)
-            WriteLine ("Invalid input.");
-         else {
-            if (IsArmstrongNum (num))
-               WriteLine ($"The given number '{num}' is an Armstrong number.");
-            else
-               WriteLine ($"The given number '{num}' is not an Armstrong number.");
-         }
+         if (!int.TryParse (input, out int num) || num < 0) WriteLine ("Invalid input.");
+         else
+            WriteLine (IsArmstrongNum (num) ? $"The given number '{num}' is an Armstrong number."
+               : $"The given number '{num}' is not an Armstrong number.");
          WriteLine ();
       }
    }
@@ -38,8 +34,7 @@ internal class Program {
          result += (int)Math.Pow (inp % 10, inpNum.ToString ().Length);
          inp = div;
       }
-      if (inpNum == result) return true;
-      return false;
+      return inpNum == result;
    }
    #endregion
 }
