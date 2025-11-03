@@ -16,11 +16,11 @@ internal class Program {
          Write ("Enter a number to see transformation steps, or 'X' to exit or 'I' for information: ");
          var input = ReadLine ();
          if (input?.Trim ().ToLower () == "i") {
-            WriteLine ("\n1)This program calculates the smallest number of steps required to" +
-                       "\ntransform all digits from a given number into the same digit." +
-                       "\n2)The transformed digit must be with in the given number." +
+            WriteLine ("\n1)This program calculates the minimum number of steps required to " +
+                       "\ntransform all digits of a given number into the same digit." +
+                       "\n2)The target digit must be one of the digits present in the given number." +
                        "\n3)Each step consists of incrementing or decrementing a digit by 1." +
-                       "\nExample: 399 -> 999 -> 6 steps.\n");
+                       "\nExample: 399 -> 999 requires 6 steps.\n");
             continue;
          }
          if (input?.Trim ().ToLower () == "x") break;
