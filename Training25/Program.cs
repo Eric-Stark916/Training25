@@ -27,11 +27,9 @@ internal class Program {
       static string GetReversed (string inp) {
          List<char> inpChars = [.. inp.Replace (" ", "").ToLower ()];
          inpChars.Reverse ();
-         int j = 0;
-         foreach (var chars in inp) {
-            if (char.IsUpper (chars)) inpChars[j] = char.ToUpper (inpChars[j]);
-            if (char.IsWhiteSpace (chars)) inpChars.Insert (j, ' ');
-            j++;
+         for(int i= 0;i<inp.Length; i++) {
+            if (char.IsUpper (inp[i])) inpChars[i] = char.ToUpper (inpChars[i]);
+            if (char.IsWhiteSpace (inp[i])) inpChars.Insert (i, ' ');
          }
          return new string ([.. inpChars]);
       }
