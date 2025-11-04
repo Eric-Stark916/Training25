@@ -27,14 +27,11 @@ internal class Program {
    // Checks whether the given number is an Armstrong number or not.
    static bool IsArmstrongNum (int inp) {
       if (inp < 10) return true;
-      int result = 0;
-      int inpNum = inp;
-      while (inp > 0) {
-         int div = inp / 10;
-         result += (int)Math.Pow (inp % 10, inpNum.ToString ().Length);
-         inp = div;
-      }
-      return inpNum == result;
+      int len=inp.ToString ().Length;
+      int sum =0;
+     for(int temp=inp; temp>0; temp/=10) 
+         sum += (int)Math.Pow (inp % 10, len);
+      return sum == inp;
    }
    #endregion
 }
