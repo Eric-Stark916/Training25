@@ -23,9 +23,9 @@ internal class Program {
    }
 
    // Returns the winner character based on maximum votes.
-   static string GetWinner (string input) {
+   static char GetWinner (string input) {
       int currentWinner = 0;
-      string winner = "";
+      char winner = ' ';
       Dictionary<char, int> charVotes = [];
       foreach (var chars in input) {
          // Stores the character with default value 1.
@@ -33,7 +33,7 @@ internal class Program {
          // In case of tie, the first character with maximum votes is considered as winner.
          if (charVotes.Values.Max () > currentWinner) {
             currentWinner = charVotes.Values.Max ();
-            winner = chars.ToString ();
+            winner = chars;
          }
       }
       return winner;
