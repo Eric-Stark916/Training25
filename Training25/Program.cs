@@ -16,8 +16,8 @@ internal class Program {
          Write ("Enter a number (1–25) to find the nth Armstrong number, or 'X' to exit: ");
          var inp = ReadLine ()?.Trim ().ToLower ();
          if (inp == "x") break;
-         else if (int.TryParse (inp, out int nthPlace) && nthPlace > 0 && nthPlace < 26)
-            WriteLine ($"The {nthPlace}th Armstrong number is: {(nthPlace <= 10 ? nthPlace - 1 : GetArmstrongNum (nthPlace))}\n");
+         else if (int.TryParse (inp, out int nthPlace) && nthPlace is > 0 and < 26)
+            WriteLine ($"The #{nthPlace} Armstrong number is: {(nthPlace <= 10 ? nthPlace - 1 : GetArmstrongNum (nthPlace))}\n");
       }
    }
 
