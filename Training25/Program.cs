@@ -14,10 +14,10 @@ internal class Program {
       OutputEncoding = Encoding.UTF8;
       char[] bPieces = { '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜' };
       char[] wPieces = { '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖' };
-      string line = "──────";
+      var line = Enumerable.Repeat ("──────", 8);
       string column = " │" + string.Join ("│", Enumerable.Repeat ("      ", 8)) + "│"; // Increasing each cells length.
-      string mid = " ├" + string.Join ("┼", Enumerable.Repeat (line, 8)) + "┤"; // Connecting a row with another row.
-      WriteLine (" ┌" + string.Join ("┬", Enumerable.Repeat (line, 8)) + "┐"); // Top Border.
+      string mid = " ├" + string.Join ("┼", line) + "┤"; // Connecting a row with another row.
+      WriteLine (" ┌" + string.Join ("┬", line) + "┐"); // Top Border.
       for (int r = 0; r < 8; r++) {
          WriteLine (column);
          if (r is 0 or 7 or 1 or 6) { // In these numbers the pieces exist.
@@ -36,6 +36,6 @@ internal class Program {
          WriteLine (column);
          if (r != 7) WriteLine (mid);
       }
-      WriteLine (" └" + string.Join ("┴", Enumerable.Repeat (line, 8)) + "┘"); // Bottom Border.
+      WriteLine (" └" + string.Join ("┴", line) + "┘"); // Bottom Border.
    }
 }
