@@ -12,16 +12,18 @@ namespace Training25;
 internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
-      char splLetter,orderType; string? input;
+      char splLetter, orderType; string? input;
       while (true) {
          Write ("Enter letters (no numbers or special characters and no spaces): ");
          input = ReadLine ();
-         if (!string.IsNullOrEmpty (input) && input.All (ch => char.IsLetter (ch))) break;
+         if (!string.IsNullOrEmpty (input) && input.All (ch => char.IsLetter (ch))) {
+            input = input.ToLower ();
+            break;
+         }
       }
-      var letters = input.ToLower ().Split (' ').ToList ();
       while (true) {
          Write ("\nPress a special letter (this will be moved to the end after sorting): ");
-         splLetter = ReadKey (intercept: true).KeyChar;
+         splLetter = char.ToLower (ReadKey (intercept: true).KeyChar);
          if (char.IsLetter (splLetter)) break;
       }
       Write ($"{splLetter}\n");
