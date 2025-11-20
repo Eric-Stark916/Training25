@@ -13,7 +13,7 @@ internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
       while (true) {
-         Write ("Enter a number (or X to exit, I for information: ");
+         Write ("Enter a number or 'X' to exit, 'I' for information: ");
          var input = ReadLine ()?.Trim ().ToLower ();
          if (input == "i") {
             WriteLine ("""
