@@ -11,15 +11,11 @@ namespace Training25;
 #region class Program -----------------------------------------------------------------------------
 internal class Program {
    #region Implementation -------------------------------------------
-   static void Main () {
-      while (true) {
-         Write ("Enter a number (1–25) to find the nth Armstrong number, or 'X' to exit: ");
-         var inp = ReadLine ()?.Trim ().ToLower ();
-         if (inp == "x") break;
-         else if (int.TryParse (inp, out int nthPlace) && nthPlace is > 0 and < 26)
-            // Upto 10th Armstrong number 'GetArmstrongNum' method is not called.
-            WriteLine ($"The #{nthPlace} Armstrong number is: {(nthPlace <= 10 ? nthPlace - 1 : GetArmstrongNum (nthPlace))}\n");
-      }
+   static void Main (string[] args) {
+      if (int.TryParse (args[0], out int nthPlace) && nthPlace is > 0 and < 26)
+         // Upto 10th Armstrong number 'GetArmstrongNum' method is not called.
+         WriteLine ($"The #{nthPlace} Armstrong number is: {(nthPlace <= 10 ? nthPlace - 1 : GetArmstrongNum (nthPlace))}\n");
+      else WriteLine ("Enter a number between 1 to 25!");
    }
 
    // Returns the nth Armstrong number.
