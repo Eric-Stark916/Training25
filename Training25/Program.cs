@@ -13,19 +13,23 @@ internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
       while (true) {
-         Write ("Enter a number to see transformation steps, or 'X' to exit or 'I' for information: ");
-         var input = ReadLine ();
-         if (input?.Trim ().ToLower () == "i") {
-            WriteLine ("\n1)This program calculates the minimum number of steps required to " +
-                       "\ntransform all digits of a given number into the same digit." +
-                       "\n2)The target digit must be one of the digits present in the given number." +
-                       "\n3)Each step consists of incrementing or decrementing a digit by 1." +
-                       "\nExample: 399 -> 999 requires 6 steps.\n");
+         Write ("Enter a number (or X to exit, I for information: ");
+         var input = ReadLine ()?.Trim ().ToLower ();
+         if (input == "i") {
+            WriteLine ("""
+               
+               1)This program calculates the minimum number of steps required to
+                 transform all digits of a given number into the same digit.
+               2)The target digit must be one of the digits present in the given number.
+               3)Each step consists of incrementing or decrementing a digit by 1.
+                 Example: 399 -> 999 requires 6 steps.
+
+               """);
             continue;
          }
-         if (input?.Trim ().ToLower () == "x") break;
+         if (input == "x") break;
          bool isvalid = int.TryParse (input, out var num) && num >= 0;
-         WriteLine (isvalid ? $"The smallest possible steps required to change the number {input} is: " +
+         WriteLine (isvalid ? $"The minimum steps to change the number {input}: " +
                               $"{GetMinSteps (num)}\n" : "Invalid input.\n");
       }
    }
@@ -34,18 +38,18 @@ internal class Program {
    static int GetMinSteps (int inp) {
       if (inp < 10) return 0;
       int minSteps = int.MaxValue;
-      for (int i = 0; i <= 9; i++) {
-         int steps = 0;
-         int tmp = inp;
-         while (tmp > 0) {
-            int digit = tmp % 10;
-            steps += Math.Abs (digit - i);
-            tmp /= 10;
+      for (int temp = inp; temp > 0; temp /= 10) {
+         int rem = inp, steps = 0;
+         int targetDigit = temp % 10;
+         while (rem > 0) {
+            int digit = rem % 10;
+            steps += Math.Abs (digit - targetDigit);
+            rem /= 10;
          }
-         minSteps = Math.Min (minSteps, steps);
+         if (steps < minSteps) minSteps = steps;
       }
       return minSteps;
-      #endregion
    }
+   #endregion
 }
 #endregion
