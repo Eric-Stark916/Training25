@@ -13,24 +13,25 @@ internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
       while (true) {
-         Write ("Enter characters to delete the matching adjacent pair or 'X' to exit: ");
+         Write ("Enter letters to remove the matching adjacent pair or 'X' to exit: ");
          string? inp = ReadLine ()?.Trim ().ToLower ();
-         if (string.IsNullOrWhiteSpace (inp)) continue;
+         if (string.IsNullOrWhiteSpace (inp) || !inp.All (char.IsLetter)) continue;
          if (inp == "x") break;
          string result = GetReducedString (inp);
-         WriteLine (result.Length == 0 ? "Empty string.\n" : $"The resultant string for the given input {inp} is: {result}\n");
+         WriteLine (result.Length == 0 ? "Empty string.\n" : $"The resultant string for the given input {inp} : {result}\n");
       }
    }
 
    // Checks and removes the adjacent matching character pairs from the given string.
    static string GetReducedString (string inp) {
-      string sortedInp = new (inp.OrderBy (x => x).ToArray ());
-      int i = 0;
-      while (i < sortedInp.Length - 1) {
-         if (sortedInp[i] == sortedInp[i + 1]) sortedInp = sortedInp.Remove (i, 2);
-         else i++;
+      int i = 1;
+      while (i < inp.Length) {
+         if (inp[i] == inp[i - 1]) {
+            inp = inp.Remove (i - 1, 2);
+            i = 1;
+         } else i++;
       }
-      return sortedInp;
+      return inp;
    }
    #endregion
 }
