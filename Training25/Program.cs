@@ -24,13 +24,13 @@ internal class Program {
 
    // Checks and removes the adjacent matching character pairs from the given string.
    static string GetReducedString (string inp) {
-      for (int i = 0; i < inp.Length; i++) {
-         while (i < inp.Length - 1) {
-            if (inp[i] == inp[i + 1]) inp = inp.Remove (i, 2);
-            else i++;
-         }
+      string sortedInp = new (inp.OrderBy (x => x).ToArray ());
+      int i = 0;
+      while (i < sortedInp.Length - 1) {
+         if (sortedInp[i] == sortedInp[i + 1]) sortedInp = sortedInp.Remove (i, 2);
+         else i++;
       }
-      return inp;
+      return sortedInp;
    }
    #endregion
 }
