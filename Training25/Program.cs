@@ -13,10 +13,10 @@ internal class Program {
    #region Implementation -------------------------------------------
    static void Main () {
       while (true) {
-         Write ("Enter letters to remove the matching adjacent pair or 'X' to exit: ");
+         Write ("Enter letters (without spaces) to remove the matching adjacent pair or 'X' to exit: ");
          string? inp = ReadLine ()?.Trim ().ToLower ();
          if (string.IsNullOrWhiteSpace (inp) || !inp.All (char.IsLetter)) continue;
-         if (inp == "x") break;
+         else if (inp == "x") break;
          string result = GetReducedString (inp);
          WriteLine (result.Length == 0 ? "Empty string.\n" : $"The resultant string for the given input {inp} : {result}\n");
       }
@@ -24,14 +24,12 @@ internal class Program {
 
    // Checks and removes the adjacent matching character pairs from the given string.
    static string GetReducedString (string inp) {
-      int i = 1;
-      while (i < inp.Length) {
-         if (inp[i] == inp[i - 1]) {
-            inp = inp.Remove (i - 1, 2);
-            i = 1;
-         } else i++;
+      var charStack = new Stack<char> ();
+      foreach (char c in inp) {
+         if (charStack.Count > 0 && charStack.Peek () == c) charStack.Pop ();
+         else charStack.Push (c);
       }
-      return inp;
+      return new string (charStack.Reverse ().ToArray ());
    }
    #endregion
 }
