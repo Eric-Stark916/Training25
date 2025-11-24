@@ -23,24 +23,24 @@ internal class Program {
          } else if (input?.ToLower () == "x") break;
          WriteLine ($"The reversed string for the given input \"{input}\" is: {GetReversed (input!)}\n");
       }
+   }
 
-      // Gives reversed string while maintaining the case and spaces.
-      static string GetReversed (string inp) {
-         int inpLength = inp.Length;
-         char[] output = new char[inpLength];
-         int revIndex = inpLength - 1;
-         for (int i = 0; i < inpLength; i++) {
-            char inpChar = inp[i];
-            if (char.IsWhiteSpace (inpChar)) output[i] = ' ';
-            else {
-               while (!char.IsLetterOrDigit (inp[revIndex])) revIndex--;
-               char revChar = inp[revIndex];
-               output[i] = char.IsUpper (inpChar) ? char.ToUpper (revChar) : char.ToLower (revChar);
-               revIndex--;
-            }
+   // Gives reversed string while maintaining the case and spaces.
+   static string GetReversed (string inp) {
+      int inpLength = inp.Length;
+      char[] output = new char[inpLength];
+      int revIndex = inpLength - 1;
+      for (int i = 0; i < inpLength; i++) {
+         char inpChar = inp[i];
+         if (char.IsWhiteSpace (inpChar)) output[i] = ' ';
+         else {
+            while (!char.IsLetterOrDigit (inp[revIndex])) revIndex--;
+            char revChar = inp[revIndex];
+            output[i] = char.IsUpper (inpChar) ? char.ToUpper (revChar) : char.ToLower (revChar);
+            revIndex--;
          }
-         return new string (output);
       }
+      return new string (output);
    }
    #endregion
 }
