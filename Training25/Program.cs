@@ -15,23 +15,31 @@ internal class Program {
       while (true) {
          Write ("Enter words or numbers to get a reversed one or enter 'X' to exit: ");
          var input = ReadLine ();
-         if (input?.ToLower () == "x") break;
-         if (string.IsNullOrWhiteSpace (input)) {
+         bool isInvalid = string.IsNullOrEmpty (input) || input.Any (ch => !char.IsLetterOrDigit (ch)
+                                                                        && !char.IsWhiteSpace (ch));
+         if (isInvalid) {
             WriteLine ("Invalid input.\n");
             continue;
-         }
-         WriteLine ($"The reversed string for the given input \"{input}\" is: {GetReversed (input)}\n");
+         } else if (input?.ToLower () == "x") break;
+         WriteLine ($"The reversed string for the given input \"{input}\" is: {GetReversed (input!)}\n");
       }
 
       // Gives reversed string while maintaining the case and spaces.
       static string GetReversed (string inp) {
-         List<char> inpChars = [.. inp.Replace (" ", "").ToLower ()];
-         inpChars.Reverse ();
-         for(int i= 0;i<inp.Length; i++) {
-            if (char.IsUpper (inp[i])) inpChars[i] = char.ToUpper (inpChars[i]);
-            if (char.IsWhiteSpace (inp[i])) inpChars.Insert (i, ' ');
+         int inpLength = inp.Length;
+         char[] output = new char[inpLength];
+         int revIndex = inpLength - 1;
+         for (int i = 0; i < inpLength; i++) {
+            char inpChar = inp[i];
+            if (char.IsWhiteSpace (inpChar)) output[i] = ' ';
+            else {
+               while (!char.IsLetterOrDigit (inp[revIndex])) revIndex--;
+               char revChar = inp[revIndex];
+               output[i] = char.IsUpper (inpChar) ? char.ToUpper (revChar) : char.ToLower (revChar);
+               revIndex--;
+            }
          }
-         return new string ([.. inpChars]);
+         return new string (output);
       }
    }
    #endregion
