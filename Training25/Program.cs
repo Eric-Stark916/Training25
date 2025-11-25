@@ -24,12 +24,12 @@ internal class Program {
 
    // Checks and removes the adjacent matching character pairs from the given string.
    static string GetReducedString (string inp) {
-      var charStack = new Stack<char> ();
+      Stack<char> charStack = new ();
       foreach (char c in inp) {
          if (charStack.Count > 0 && charStack.Peek () == c) charStack.Pop ();
          else charStack.Push (c);
       }
-      return new string (charStack.Reverse ().ToArray ());
+      return new string ([.. charStack.Reverse ()]);
    }
    #endregion
 }
