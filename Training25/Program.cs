@@ -11,7 +11,7 @@ namespace Training25;
 #region class Program -----------------------------------------------------------------------------
 class Program {
    #region Implementation -------------------------------------------
-   /// <summary>Testing the custom 'MyList'.</summary>
+   // Testing the custom 'MyList'.
    static void Main () {
       MyList<string> words = new ();
       MyList<int> nums = new ();
